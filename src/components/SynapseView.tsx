@@ -432,7 +432,7 @@ export function SynapseView({ neuro, state, highlight = null, compact = false, o
         const { state: st } = propsRef.current;
         const strongMsg = st === "typical";
         const text = strongMsg ? "Strong message getting through" : "Weak message: less gets through";
-        c.font = `700 ${compact ? 11 : 13}px Inter, system-ui, sans-serif`;
+        c.font = `700 ${compact ? 11 : 13}px Montserrat, system-ui, sans-serif`;
         const tw = c.measureText(text).width;
         const bx = W - tw - (compact ? 30 : 40);
         const by = compact ? 8 : 12;
@@ -445,7 +445,7 @@ export function SynapseView({ neuro, state, highlight = null, compact = false, o
       }
 
       // labels
-      c.font = `600 ${font}px Inter, system-ui, sans-serif`;
+      c.font = `600 ${font}px Montserrat, system-ui, sans-serif`;
       c.fillStyle = "#6b5a66";
       c.textAlign = "left";
       c.fillText("Sending nerve cell", 10, font + 6);

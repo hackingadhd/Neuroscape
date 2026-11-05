@@ -5350,3 +5350,1441 @@ button.brain-label {
   line-height: 1.4;
   color: #4b443a;
 }
+
+/* =====================================================================
+   Mindscape look: Montserrat, pale cool-grey page, white rounded cards,
+   grainy pastel gradients, black pill buttons.
+   ===================================================================== */
+:root {
+  --ink: #1d1d26;
+  --muted: #6e6e7a;
+  --paper: #ffffff;
+  --paper-deep: #f5f6fa;
+  --line: rgba(29, 29, 38, 0.08);
+  --shadow: 0 24px 60px rgba(35, 40, 70, 0.1);
+  --shadow-soft: 0 12px 32px rgba(35, 40, 70, 0.07);
+  --serif: "Montserrat", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --note: "Montserrat", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --hand: "Montserrat", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --black: #0d0d12;
+  font-family: var(--serif);
+  color: var(--ink);
+  background: #f5f6fa;
+}
+
+html,
+body {
+  background: #f5f6fa;
+}
+
+body,
+button,
+input {
+  font-family: var(--serif);
+}
+
+.app-shell {
+  background: #f5f6fa;
+}
+
+/* Header like the Mindscape site */
+.scape-topbar {
+  align-items: center;
+}
+.scape-topbar .brand-block {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+}
+.scape-wordmark {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.9rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.01em !important;
+  text-transform: uppercase;
+  color: #3a3236;
+}
+.scape-topbar .brand-block p {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+.scape-nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.scape-link {
+  background: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+.scape-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.scape-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 24px;
+  border-radius: 999px;
+  background: var(--black);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: transform 140ms ease, background 140ms ease;
+}
+.scape-pill:hover {
+  background: #26262f;
+  transform: translateY(-1px);
+}
+
+/* Cards */
+.panel,
+.stage-panel {
+  border: 0;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: var(--shadow-soft);
+}
+
+.panel-heading {
+  margin-bottom: 14px;
+  padding-bottom: 0;
+  border-bottom: 0;
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+}
+.panel-heading svg {
+  color: var(--muted);
+}
+
+.parts-hint,
+.journey-intro,
+.adhd-hint,
+.imaging-caption {
+  font-family: var(--serif) !important;
+  font-size: 0.85rem !important;
+  font-weight: 400;
+  line-height: 1.45 !important;
+  color: var(--muted) !important;
+}
+
+/* Body text: clean sans, comfortable size */
+.part-card-body p,
+.notes-panel p,
+.journey-card p,
+.adhd-summary,
+.detail-note,
+.meter-explain,
+.key-words dd,
+.good-to-know p,
+.sign-row em {
+  font-family: var(--serif);
+  color: #3c3c48;
+}
+.part-card-body h5,
+.sign-elsewhere h5,
+.contrast-table thead th {
+  font-family: var(--serif);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Headings in Montserrat, light weight like "Your Scapes" */
+.stage-title h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.stage-title p,
+.stage-title p:not(.state-hint) {
+  font-family: var(--serif);
+  font-style: normal;
+  color: var(--muted);
+}
+.cell-row-copy strong,
+.part-card-head strong,
+.sign-row strong,
+.journey-card h4,
+.key-words dt,
+.contrast-table tbody th,
+.adhd-meter-head strong,
+.brain-label,
+button.brain-label,
+.sign-elsewhere strong,
+.compare-live h4,
+.comparison-modal-head h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+}
+
+/* Brain panel: big rounded card with a soft grainy gradient */
+.stage-panel {
+  background: var(--scape-light);
+  background-size: 220px 220px, cover, cover, cover, cover;
+}
+.stage-panel .stage-title p.state-hint {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(8px);
+}
+.state-badge {
+  background: rgba(255, 255, 255, 0.8);
+  border: 0;
+  font-family: var(--serif);
+  font-weight: 500;
+}
+
+/* View Mode card and toolbars become frosted white chips */
+.view-card,
+.view-card.is-side {
+  border: 0;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(10px);
+}
+.view-card > span,
+.state-switch > span {
+  font-family: var(--serif);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.mode-switcher button {
+  border-radius: 12px;
+}
+.mode-switcher button.is-active {
+  background: var(--black);
+  color: #fff;
+  border-color: var(--black);
+}
+.state-switch > div {
+  border-radius: 999px;
+  padding: 4px;
+}
+.state-switch button {
+  border-radius: 999px;
+  font-family: var(--serif);
+}
+.state-switch button.is-active,
+.state-switch button.state-adhd.is-active {
+  background: var(--black);
+  color: #fff;
+  box-shadow: none;
+}
+.toggle-line input:checked + i {
+  background: var(--black);
+}
+.stage-toolbar,
+.export-toolbar {
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+/* Brain Map: rows feel like mini Mindscape cards */
+.cell-row {
+  border-radius: 16px;
+}
+.cell-row.is-active,
+.cell-row:hover {
+  background: #f5f6fa;
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
+}
+.cell-row.is-active {
+  box-shadow: inset 0 0 0 2px var(--black);
+}
+.mini-cell,
+.cell-panel .mini-cell {
+  border-radius: 12px;
+  background-size: 220px 220px, cover, cover, cover, cover !important;
+}
+
+/* Signs & parts */
+.sign-row,
+.part-card,
+.adhd-card {
+  border-radius: 16px;
+}
+.sign-row.is-on {
+  background: #f5f6fa;
+  border-color: var(--black);
+}
+.part-card {
+  border: 1px solid var(--line);
+  background: #fff;
+}
+.part-card.is-open {
+  background: #fafbfd;
+  border-color: color-mix(in srgb, var(--dot) 50%, transparent);
+}
+.part-adhd {
+  border-radius: 12px;
+}
+.part-signs span,
+.sign-clear,
+.live-pill {
+  border-radius: 8px;
+  font-family: var(--serif);
+}
+
+/* Journey */
+.journey-card {
+  border-radius: 18px;
+}
+.journey-num {
+  font-family: var(--serif);
+  font-weight: 600;
+}
+.journey-arrow {
+  border-radius: 999px;
+  font-family: var(--serif);
+}
+.journey-arrow.is-next {
+  background: var(--black);
+  border-color: var(--black);
+}
+.journey-dots button.is-on {
+  background: var(--black);
+}
+
+/* Meter, key words, tables, buttons */
+.adhd-meter,
+.key-words,
+.good-to-know {
+  border-radius: 16px;
+}
+.comparison-button {
+  border: 0;
+  border-radius: 999px;
+  background: var(--black);
+  color: #fff;
+  font-family: var(--serif);
+  font-weight: 500;
+}
+.comparison-button:hover {
+  background: #26262f;
+}
+
+/* Modals and toast */
+.modal-panel,
+.comparison-modal,
+.browser-modal,
+.about-modal {
+  border-radius: 24px;
+  font-family: var(--serif);
+}
+.toast,
+.app-toast {
+  border-radius: 999px;
+  font-family: var(--serif);
+}
+
+/* 3D labels: white chips like the site's card tags */
+.brain-label,
+button.brain-label {
+  border: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  font-size: 0.8rem;
+}
+.brain-label.is-active {
+  box-shadow: 0 0 0 2px var(--dot), 0 6px 18px rgba(35, 40, 70, 0.14);
+}
+
+/* Synapse HUD */
+.synapse-hud {
+  border: 0;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+}
+.synapse-hud strong {
+  font-family: var(--serif);
+  font-weight: 600;
+}
+
+/* close-up starts below the "What to look for" box */
+@media (min-width: 1081px) {
+  .canvas-wrap.is-synapse {
+    top: 250px;
+  }
+}
+
+/* Left side: every panel is a dropdown, closed until its title is clicked */
+.drop-rail .panel > .panel-heading {
+  margin-bottom: 0;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 12px;
+}
+.drop-rail .panel > .panel-heading::after {
+  content: "";
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  margin: 0 4px 0 6px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform 200ms ease;
+  opacity: 0.6;
+}
+.drop-rail .panel[data-open] > .panel-heading {
+  margin-bottom: 14px;
+}
+.drop-rail .panel[data-open] > .panel-heading::after {
+  transform: rotate(-135deg) translateY(-2px);
+}
+.drop-rail .panel:not([data-open]) > :not(.panel-heading) {
+  display: none !important;
+}
+.drop-rail .panel > .panel-heading:focus-visible {
+  outline: 2.5px solid var(--black);
+  outline-offset: 4px;
+}
+.drop-rail .panel:not([data-open]) {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+.drop-rail .panel:not([data-open]):hover {
+  box-shadow: 0 14px 36px rgba(35, 40, 70, 0.1);
+}
+.drop-rail .panel > .panel-heading > span:first-child {
+  flex: 1;
+}
+
+/* Page background = the brain's grainy gradient, extended across the whole page */
+.app-shell {
+  background: var(--scape-light);
+  background-size: 220px 220px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  transition: background 600ms ease;
+}
+.stage-panel {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Intro card above the dropdowns */
+.intro-card {
+  grid-column: 1 / -1;
+  padding: 20px 22px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-soft);
+}
+.intro-card h2 {
+  margin: 0 0 12px;
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.intro-card h3 {
+  margin: 0 0 4px;
+  font-family: var(--serif);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.intro-card p,
+.intro-card li {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: #3c3c48;
+}
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.intro-card ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 18px;
+}
+.intro-card strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* keep left items packed at the top; brain area fully see-through */
+.info-rail {
+  align-content: start;
+}
+.canvas-wrap,
+.cell-canvas,
+.cell-canvas canvas {
+  background: transparent !important;
+}
+
+/* ---------- Welcome screen ---------- */
+.welcome-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 48px 40px;
+  overflow-y: auto;
+  animation: welcome-in 500ms ease both;
+}
+.welcome-screen.is-leaving {
+  animation: welcome-out 450ms ease both;
+}
+@keyframes welcome-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes welcome-out {
+  to { opacity: 0; transform: scale(1.02); }
+}
+.welcome-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.welcome-top .scape-wordmark {
+  display: inline-block;
+}
+.welcome-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 48px;
+  max-width: 1500px;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 24px;
+}
+.welcome-copy h1 {
+  margin: 0 0 16px;
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 3.6vw, 3.4rem);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.welcome-lead {
+  margin: 0 0 28px;
+  max-width: 640px;
+  font-size: 1.12rem;
+  line-height: 1.55;
+  color: #3c3c48;
+}
+.welcome-columns {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 28px;
+  margin-bottom: 32px;
+  padding: 22px 24px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-soft);
+}
+.welcome-columns h2 {
+  margin: 0 0 8px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.welcome-columns p,
+.welcome-columns li {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #3c3c48;
+}
+.welcome-columns ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 18px;
+}
+.welcome-columns strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+.welcome-enter {
+  padding: 16px 30px;
+  font-size: 1.05rem;
+}
+.welcome-card {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 30px 70px rgba(35, 40, 70, 0.18);
+}
+.welcome-chip {
+  position: absolute;
+  top: 26px;
+  left: 26px;
+  padding: 7px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+.welcome-card-text {
+  position: absolute;
+  left: 30px;
+  right: 30px;
+  bottom: 30px;
+  display: grid;
+  gap: 8px;
+  color: #fff;
+  text-shadow: 0 2px 18px rgba(30, 30, 45, 0.25);
+}
+.welcome-card-text strong {
+  font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+  font-weight: 500;
+}
+.welcome-card-text span {
+  font-size: 1.05rem;
+}
+.welcome-card::after {
+  content: "";
+  position: absolute;
+  inset: 40% 0 0;
+  background: linear-gradient(180deg, transparent, rgba(40, 40, 60, 0.35));
+}
+.welcome-card > * {
+  z-index: 1;
+}
+@media (max-width: 1000px) {
+  .welcome-body,
+  .welcome-columns {
+    grid-template-columns: 1fr;
+  }
+  .welcome-screen {
+    padding: 18px 20px 32px;
+  }
+}
+
+.welcome-copy h1 {
+  line-height: 1.12;
+  max-width: 680px;
+}
+
+/* Welcome: frosted, see-through cover over the whole page */
+.welcome-screen {
+  background: transparent;
+  backdrop-filter: blur(5px) saturate(1.05);
+  -webkit-backdrop-filter: blur(5px) saturate(1.05);
+  padding: 26px 56px 44px;
+}
+.welcome-veil {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.78;
+}
+.welcome-screen > :not(.welcome-veil) {
+  position: relative;
+}
+.welcome-body {
+  max-width: none;
+  gap: 64px;
+}
+.welcome-copy h1 {
+  font-size: clamp(2.6rem, 4.4vw, 4.4rem);
+  max-width: 760px;
+}
+.welcome-lead {
+  font-size: 1.2rem;
+  max-width: 700px;
+}
+.welcome-card {
+  aspect-ratio: 5 / 4;
+  max-height: calc(100vh - 160px);
+  width: 100%;
+  justify-self: end;
+}
+
+/* Welcome v3: solid, centred, one sentence at a time */
+.welcome-screen {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  padding: 26px 48px 40px;
+}
+.welcome-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.welcome-skip {
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+.welcome-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  text-align: center;
+  padding-bottom: 40px;
+}
+.welcome-sentence {
+  max-width: 900px;
+  min-height: 3.6em;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  animation: sentence-in 520ms ease both;
+}
+.welcome-sentence.is-title {
+  font-size: clamp(2.6rem, 5vw, 4.6rem);
+  line-height: 1.1;
+}
+@keyframes sentence-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.welcome-dots {
+  display: flex;
+  gap: 8px;
+}
+.welcome-dots span {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(29, 29, 38, 0.18);
+  transition: width 220ms ease, background 220ms ease;
+}
+.welcome-dots span.is-done {
+  background: rgba(29, 29, 38, 0.4);
+}
+.welcome-dots span.is-on {
+  width: 26px;
+  background: var(--black);
+}
+.welcome-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.welcome-back {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: var(--shadow-soft);
+}
+.welcome-back:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* keep dots and buttons in the same place on every sentence */
+.welcome-sentence {
+  min-height: clamp(180px, 22vh, 240px);
+}
+
+/* Main Signs: plain list, not clickable */
+.sign-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sign-row.is-static {
+  cursor: default;
+}
+.sign-row.is-static:hover {
+  background: transparent;
+}
+
+/* What's Behind Each Sign */
+.sign-links {
+  display: grid;
+  gap: 16px;
+}
+.sign-links-group h5 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 6px;
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+}
+.sign-links-group h5 i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--sign);
+}
+.sign-links-group .sign-elsewhere {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+/* Parts Explained: every card open; the one shown on the brain is outlined */
+.part-card.is-open {
+  background: #fff;
+  border-color: var(--line);
+}
+.part-card.is-selected {
+  background: #fafbfd;
+  border-color: color-mix(in srgb, var(--dot) 60%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--dot) 35%, transparent);
+}
+.part-card .part-card-head svg {
+  transform: none;
+  opacity: 0.45;
+}
+.part-card.is-selected .part-card-head svg {
+  opacity: 1;
+  color: var(--dot);
+}
+
+/* Main Signs: compact so it fits on the page */
+.signs-panel .sign-list {
+  gap: 2px;
+}
+.signs-panel .sign-row {
+  grid-template-columns: 10px 1fr;
+  gap: 9px;
+  padding: 6px 4px;
+}
+.signs-panel .sign-row > i {
+  width: 9px;
+  height: 9px;
+  margin-top: 5px;
+}
+.signs-panel .sign-row > span {
+  gap: 1px;
+}
+.signs-panel .sign-row strong {
+  font-size: 0.9rem;
+}
+.signs-panel .sign-row em {
+  font-size: 0.74rem;
+  line-height: 1.3;
+}
+.signs-panel .part-chems {
+  gap: 8px;
+  padding-top: 2px;
+}
+.signs-panel .part-chems span {
+  font-size: 0.66rem;
+}
+.signs-panel .part-chems i {
+  width: 6px;
+  height: 6px;
+}
+
+/* Main Signs + Brain Map stretched across the whole left area, items in rows */
+.info-wide {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 14px;
+}
+.info-wide .sign-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px 12px;
+}
+.info-wide .sign-row {
+  padding: 6px 6px;
+}
+.info-wide .cell-list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+.info-wide .cell-row {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  text-align: center;
+  gap: 6px;
+  min-height: 0;
+  padding: 10px 6px;
+}
+.info-wide .cell-row .favorite-dot {
+  display: none;
+}
+.info-wide .cell-row .mini-cell {
+  width: 44px;
+  height: 44px;
+}
+.info-wide .cell-row-copy {
+  justify-items: center;
+}
+.info-wide .cell-row-copy strong {
+  font-size: 0.82rem;
+  white-space: normal;
+}
+.info-wide .cell-row-copy span {
+  font-size: 0.68rem;
+  line-height: 1.25;
+  white-space: normal;
+}
+
+.info-wide .sign-row .part-chems {
+  display: flex !important;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2px 8px;
+}
+.info-wide .sign-row .part-chems span {
+  display: inline-flex;
+  white-space: nowrap;
+}
+.info-wide .cell-row {
+  min-width: 0;
+  overflow: hidden;
+}
+.info-wide .cell-row-copy {
+  min-width: 0;
+  max-width: 100%;
+}
+.info-wide .cell-row-copy strong {
+  font-size: 0.76rem;
+  overflow-wrap: anywhere;
+}
+
+.info-wide .sign-row .part-chems {
+  gap: 2px 6px;
+}
+.info-wide .sign-row .part-chems span {
+  font-size: 0.62rem;
+  gap: 4px;
+}
+.info-wide .sign-row {
+  grid-template-columns: 9px 1fr;
+  gap: 7px;
+  padding: 6px 2px;
+}
+.info-wide .cell-row {
+  padding: 10px 2px;
+}
+.info-wide .cell-row-copy strong {
+  font-size: 0.7rem;
+  letter-spacing: -0.01em;
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
+
+/* Drag handle between text and brain */
+.resize-handle {
+  display: none;
+}
+@media (min-width: 1081px) {
+  .app-grid {
+    grid-template-columns: var(--text-w, 590px) 14px minmax(0, 1fr);
+    gap: 0;
+  }
+  .app-grid > .info-rail {
+    margin-right: 4px;
+  }
+  .resize-handle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: col-resize;
+    touch-action: none;
+    outline: none;
+  }
+  .resize-handle::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: 50%;
+    width: 2px;
+    transform: translateX(-50%);
+    border-radius: 2px;
+    background: rgba(29, 29, 38, 0.1);
+    transition: background 160ms ease;
+  }
+  .resize-grip {
+    position: relative;
+    display: grid;
+    gap: 3px;
+    padding: 9px 4px;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 4px 14px rgba(35, 40, 70, 0.16);
+    transition: transform 160ms ease, background 160ms ease;
+  }
+  .resize-grip i {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(29, 29, 38, 0.45);
+  }
+  .resize-handle:hover::before,
+  .resize-handle:focus-visible::before,
+  body.is-resizing .resize-handle::before {
+    background: var(--black);
+  }
+  .resize-handle:hover .resize-grip,
+  .resize-handle:focus-visible .resize-grip,
+  body.is-resizing .resize-grip {
+    transform: scale(1.15);
+  }
+  body.is-resizing,
+  body.is-resizing * {
+    cursor: col-resize !important;
+    user-select: none !important;
+  }
+  /* narrow text area: one column instead of two */
+  .info-rail.is-narrow {
+    grid-template-columns: 1fr;
+  }
+  .info-rail.is-narrow .info-wide .cell-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Header: no wordmark, smaller About button ---------- */
+.scape-topbar .scape-pill {
+  gap: 7px;
+  padding: 8px 16px;
+  font-size: 0.86rem;
+}
+.scape-topbar .scape-link {
+  font-size: 0.9rem;
+}
+
+/* ---------- Main Signs + How it Travels stretched across like the Brain Map ---------- */
+.info-wide .journey-panel .panel-heading > span:first-child {
+  white-space: nowrap;
+}
+.info-wide .journey-card {
+  min-height: 0;
+}
+.info-wide .journey-card p {
+  max-width: none;
+}
+.info-rail.is-narrow .info-wide .sign-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* ---------- Guided tour ---------- */
+.tour-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  pointer-events: none; /* the page stays usable while the tour is open */
+}
+.tour-dim {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 22, 35, 0.42);
+}
+.tour-spotlight {
+  position: absolute;
+  border-radius: 22px;
+  box-shadow: 0 0 0 9999px rgba(20, 22, 35, 0.42), 0 0 0 2px #fff, 0 0 0 6px rgba(255, 255, 255, 0.35);
+  transition: top 320ms cubic-bezier(0.22, 1, 0.36, 1), left 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    width 320ms cubic-bezier(0.22, 1, 0.36, 1), height 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tour-card {
+  position: absolute;
+  pointer-events: auto;
+  padding: 16px 18px 14px;
+  border-radius: 20px;
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 18px 50px rgba(20, 22, 35, 0.28);
+  font-family: var(--serif);
+  animation: tour-card-in 260ms ease both;
+}
+@keyframes tour-card-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.tour-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.tour-count {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.tour-close {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+.tour-close:hover { background: rgba(26, 31, 43, 0.06); color: var(--ink); }
+.tour-card h4 {
+  margin: 0 0 6px;
+  font-size: 1.08rem;
+  font-weight: 600;
+}
+.tour-card p {
+  margin: 0 0 14px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #4a5161;
+}
+.tour-progress {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+.tour-progress i {
+  flex: 1;
+  height: 3px;
+  border-radius: 3px;
+  background: rgba(26, 31, 43, 0.12);
+  transition: background 200ms ease;
+}
+.tour-progress i.is-done { background: rgba(26, 31, 43, 0.4); }
+.tour-progress i.is-on { background: var(--ink); }
+.tour-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.tour-skip {
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.82rem;
+}
+.tour-skip:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.tour-nav {
+  display: flex;
+  gap: 8px;
+}
+.tour-back,
+.tour-next {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 36px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.86rem;
+  font-weight: 500;
+}
+.tour-back {
+  width: 36px;
+  background: #fff;
+  border: 1px solid rgba(26, 31, 43, 0.14);
+  color: var(--ink);
+}
+.tour-back:disabled { opacity: 0.35; cursor: default; }
+.tour-next {
+  padding: 0 16px;
+  background: #15151c;
+  color: #fff;
+}
+.tour-next:hover { background: #26262f; }
+@media (prefers-reduced-motion: reduce) {
+  .tour-spotlight { transition: none; }
+  .tour-card { animation: none; }
+}
+
+/* ---------- Back to Mindscape (where the Neuroscape wordmark used to be) ---------- */
+.scape-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 8px;
+  margin-left: -8px;
+  border-radius: 999px;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #3a3236;
+  text-decoration: none;
+  transition: background 140ms ease, transform 140ms ease;
+}
+.scape-back svg {
+  transition: transform 140ms ease;
+}
+.scape-back:hover {
+  background: rgba(255, 255, 255, 0.55);
+}
+.scape-back:hover svg {
+  transform: translateX(-3px);
+}
+.scape-back:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+.scape-topbar .brand-block {
+  align-items: center;
+}
+
+/* ---------- Main Signs of ADHD: compact chips ---------- */
+.signs-panel .sign-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 2px 0 10px;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.signs-panel .sign-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.signs-panel .sign-legend i,
+.signs-panel .sign-dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--chem);
+}
+.signs-panel .sign-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.signs-panel .sign-chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+  padding: 7px 10px;
+  border-radius: 10px;
+  background: rgba(26, 31, 43, 0.04);
+}
+.signs-panel .sign-chip strong {
+  overflow: hidden;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--ink);
+}
+.signs-panel .sign-dots {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 3px;
+}
+.info-rail.is-narrow .signs-panel .sign-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Journey intro: always one line */
+.journey-panel .journey-intro {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Brain Map tiles: name and description on one line each */
+.info-wide .cell-row-copy strong,
+.info-wide .cell-row-copy span {
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.info-wide .cell-row-copy strong {
+  font-size: 0.65rem;
+  letter-spacing: -0.02em;
+}
+.info-wide .cell-row-copy span {
+  font-size: 0.66rem;
+}
+
+/* ---------- "Watch side by side" in the View Mode card ---------- */
+.view-compare {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 4px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: #15151c;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: background 140ms ease, transform 140ms ease;
+}
+.view-compare:hover {
+  background: #26262f;
+  transform: translateY(-1px);
+}
+
+/* ---------- Side-by-side comparison: step through the whole journey ---------- */
+.brain-compare {
+  width: min(1180px, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+}
+.compare-steps {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--chem) 10%, #fff);
+}
+.compare-step-copy {
+  min-width: 0;
+  animation: tour-card-in 240ms ease both;
+}
+.compare-step-num {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.compare-step-copy h4 {
+  margin: 2px 0 4px;
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.compare-step-copy p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+.compare-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 12px 0 0;
+}
+.compare-dots button {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border-radius: 999px;
+  background: rgba(26, 31, 43, 0.16);
+  cursor: pointer;
+  transition: width 200ms ease, background 200ms ease;
+}
+.compare-dots button.is-done { background: rgba(26, 31, 43, 0.4); }
+.compare-dots button.is-on { width: 24px; background: var(--chem); }
+.compare-canvas.is-brain {
+  position: relative;
+  height: 340px;
+  overflow: hidden;
+}
+.compare-canvas.is-synapse {
+  height: 340px;
+}
+.compare-note {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.compare-live.state-adhd h4::after,
+.compare-live.state-typical h4::after {
+  content: "";
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-left: 8px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.compare-live.state-typical h4::after { background: #3fa66b; }
+.compare-live.state-adhd h4::after { background: #e08a2e; }
+@media (max-width: 760px) {
+  .compare-live-grid { grid-template-columns: 1fr; }
+  .compare-canvas.is-brain,
+  .compare-canvas.is-synapse { height: 260px; }
+}
+
+/* Pop-ups sit above the header (the tour and welcome screen stay on top) */
+.modal-layer {
+  z-index: 120;
+}
+.view-compare {
+  white-space: nowrap;
+}
+
+/* Step boxes keep one height: all steps share one grid cell, only the current one shows */
+.step-stack {
+  display: grid;
+  min-width: 0;
+}
+.step-stack > * {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+.step-stack > .is-current {
+  visibility: visible;
+  animation: tour-card-in 240ms ease both;
+}
+.compare-step-copy.step-stack {
+  animation: none;
+}

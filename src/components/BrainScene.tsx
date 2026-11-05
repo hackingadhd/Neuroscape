@@ -1,5 +1,5 @@
 import { Canvas, useFrame, useThree, type ThreeEvent } from "@react-three/fiber";
-import { ContactShadows, Environment, Float, Html, OrbitControls } from "@react-three/drei";
+import { Environment, Float, Html, OrbitControls } from "@react-three/drei";
 import { Suspense, useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import {
   ACESFilmicToneMapping,
@@ -88,7 +88,7 @@ function makeSurfaceMaterial(): { material: MeshPhysicalMaterial; uniforms: Unif
         "#include <color_fragment>",
         `#include <color_fragment>
         float hl = clamp(vHl * uHlAmt, 0.0, 1.0);
-        diffuseColor.rgb = mix(diffuseColor.rgb, vec3(1.0, 0.92, 0.95), 0.55 * uGhost);
+        diffuseColor.rgb = mix(diffuseColor.rgb, vec3(1.0, 0.92, 0.95), 0.3 * uGhost);
         diffuseColor.rgb = mix(diffuseColor.rgb, uHlColor * (0.8 + 0.3 * uPulse) * (0.75 + 0.25 * diffuseColor.r), hl * 0.9);
         if (!gl_FrontFacing) diffuseColor.rgb *= 0.7;`,
       )
@@ -518,7 +518,7 @@ function BrainModel({
   const pathTarget = PATHWAYS[target] ? target : null;
   const neurochem = ["neuro", "dopamine", "norepinephrine", "serotonin", "areas"].includes(cell.id);
   const needsInside = Boolean(deepTarget || pathTarget || isSynapse || neurochem);
-  const shellOpacity = viewMode === "focus" ? 0.1 : needsInside && !crossSection ? 0.24 : 1;
+  const shellOpacity = viewMode === "focus" ? 0.18 : needsInside && !crossSection ? 0.45 : 1;
 
   const pathways = useMemo(() => {
     const set = new Set<string>(cell.pathways);
@@ -711,14 +711,12 @@ export function BrainScene({
       gl={{
         antialias: true,
         alpha: true,
-        premultipliedAlpha: false,
         preserveDrawingBuffer: true,
         toneMapping: ACESFilmicToneMapping,
         toneMappingExposure: 1.0,
       }}
       camera={{ position: [3.5, 1.15, 3.7], fov: 42 }}
     >
-      <color attach="background" args={["#fbf9f3"]} />
       <ClippingEnabler />
       <CameraFit />
       <Suspense fallback={null}>
@@ -743,7 +741,6 @@ export function BrainScene({
           override={override}
         />
       </Float>
-      <ContactShadows position={[0, -1.2, 0]} opacity={0.2} scale={3.6} blur={2.8} far={2.6} resolution={512} />
       <OrbitControls makeDefault enableDamping dampingFactor={0.08} enablePan={false} minDistance={3} maxDistance={8} />
     </Canvas>
   );

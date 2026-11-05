@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Activity, Box, Camera, CircleDot, EyeOff, Layers, Maximize, RotateCcw, type LucideIcon } from "lucide-react";
+import { Activity, Box, Camera, CircleDot, Columns2, EyeOff, Layers, Maximize, RotateCcw, type LucideIcon } from "lucide-react";
 import { BRAIN_STATES, NEURO_INFO, type BrainState, type CellItem, type ViewMode } from "../data/cells";
 import { captureScreenshot, exportGlb, toggleFullscreen } from "../lib/download";
 import { BrainScene } from "./BrainScene";
@@ -31,6 +31,7 @@ type StageProps = {
   onAutoRotateChange: (value: boolean) => void;
   onReset: () => void;
   onToast: (message: string) => void;
+  onCompare: () => void;
 };
 
 export function Stage({
@@ -51,6 +52,7 @@ export function Stage({
   onAutoRotateChange,
   onReset,
   onToast,
+  onCompare,
 }: StageProps) {
   const [stats, setStats] = useState<SynapseStats | null>(null);
   const organelle = cell.organelles.find((o) => o.id === activeOrganelle) ?? cell.organelles[0];
@@ -150,6 +152,10 @@ export function Stage({
               ))}
             </div>
           </div>
+          <button type="button" className="view-compare" onClick={onCompare}>
+            <Columns2 size={16} />
+            Side by side
+          </button>
         </div>
 
         <div className={`canvas-wrap ${viewMode === "synapse" ? "is-synapse" : ""}`}>

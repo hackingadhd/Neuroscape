@@ -26,19 +26,23 @@ export function JourneyPanel({ name, color, steps, index, active, onStep }: Jour
         </span>
       </div>
 
-      {!active && (
-        <p className="journey-intro">
-          Follow {name.toLowerCase()} step by step, from where it's made to how it delivers its message. Use the arrows and
-          watch the brain.
+      {(
+        <p className="journey-intro" title={`Follow ${name.toLowerCase()} step by step, from where it's made to how it delivers its message. Use the arrows and watch the brain.`}>
+          Follow {name.toLowerCase()} step by step, from where it's made to its message.
         </p>
       )}
 
-      <div className="journey-card" key={`${name}-${index}`}>
-        <span className="journey-num">{index + 1}</span>
-        <div>
-          <h4>{step.title}</h4>
-          <p>{step.text}</p>
-          <small>{step.view === "brain" ? "Shown on the 3D brain" : "Shown in the close-up of two nerve cells"}</small>
+      <div className="journey-card">
+        <span className="journey-num" key={`n-${name}-${index}`}>{index + 1}</span>
+        {/* Every step sits in the same spot; only the current one is visible, so the box is always as tall as the longest step */}
+        <div className="step-stack">
+          {steps.map((s, i) => (
+            <div key={`${name}-${i}`} className={i === index ? "is-current" : ""} aria-hidden={i !== index}>
+              <h4>{s.title}</h4>
+              <p>{s.text}</p>
+              <small>{s.view === "brain" ? "Shown on the 3D brain" : "Shown in the close-up of two nerve cells"}</small>
+            </div>
+          ))}
         </div>
       </div>
 

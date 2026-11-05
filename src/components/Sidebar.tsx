@@ -1,6 +1,5 @@
-import { useEffect, useMemo } from "react";
-import { ChevronDown, Sparkles, Target } from "lucide-react";
-import { cells, NEURO_INFO, SIGNS, type CellItem, type NeuroKey, type Sign } from "../data/cells";
+import { MapPin, Sparkles, Target } from "lucide-react";
+import { NEURO_INFO, SIGNS, type CellItem, type NeuroKey } from "../data/cells";
 
 function ChemChips({ chemicals }: { chemicals: NeuroKey[] }) {
   return (
@@ -15,12 +14,9 @@ function ChemChips({ chemicals }: { chemicals: NeuroKey[] }) {
   );
 }
 
-type SignsPanelProps = {
-  sign: Sign | null;
-  onSignChange: (sign: Sign | null) => void;
-};
-
-export function SignsPanel({ sign, onSignChange }: SignsPanelProps) {
+/** The main signs of ADHD: one compact line each, with a dot per chemical behind it. */
+export function SignsPanel() {
+  const chems = Object.keys(NEURO_INFO) as NeuroKey[];
   return (
     <section className="panel signs-panel">
       <div className="panel-heading">
@@ -29,26 +25,30 @@ export function SignsPanel({ sign, onSignChange }: SignsPanelProps) {
           Main Signs of ADHD
         </span>
       </div>
-      <p className="parts-hint">Tap a sign to see which brain parts and chemicals are behind it.</p>
-      <div className="sign-list">
-        {SIGNS.map((s) => (
-          <button
-            key={s.id}
-            type="button"
-            className={`sign-row ${sign === s.id ? "is-on" : ""}`}
-            style={{ ["--sign" as string]: s.color }}
-            aria-pressed={sign === s.id}
-            onClick={() => onSignChange(sign === s.id ? null : s.id)}
-          >
+      <div className="sign-legend" aria-label="Dot colours">
+        {chems.map((c) => (
+          <span key={c} style={{ ["--chem" as string]: NEURO_INFO[c].color }}>
             <i />
-            <span>
-              <strong>{s.name}</strong>
-              <em>{s.text}</em>
-              <ChemChips chemicals={s.chemicals} />
-            </span>
-          </button>
+            {NEURO_INFO[c].name}
+          </span>
         ))}
       </div>
+      <ul className="sign-grid">
+        {SIGNS.map((s) => (
+          <li
+            key={s.id}
+            className="sign-chip"
+            title={`Linked to ${s.chemicals.map((c) => NEURO_INFO[c].name).join(", ")}`}
+          >
+            <strong>{s.name}</strong>
+            <span className="sign-dots" aria-label={s.chemicals.map((c) => NEURO_INFO[c].name).join(", ")}>
+              {s.chemicals.map((c) => (
+                <i key={c} style={{ ["--chem" as string]: NEURO_INFO[c].color }} />
+              ))}
+            </span>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
@@ -56,45 +56,10 @@ export function SignsPanel({ sign, onSignChange }: SignsPanelProps) {
 type PartsPanelProps = {
   selectedCell: CellItem;
   activeOrganelle: string;
-  sign: Sign | null;
-  onSignChange: (sign: Sign | null) => void;
   onSelectOrganelle: (id: string) => void;
-  onOpenPart: (cellId: string, partId: string) => void;
 };
 
-export function PartsPanel({
-  selectedCell,
-  activeOrganelle,
-  sign,
-  onSignChange,
-  onSelectOrganelle,
-  onOpenPart,
-}: PartsPanelProps) {
-  const signInfo = SIGNS.find((s) => s.id === sign);
-
-  const parts = useMemo(
-    () => (sign ? selectedCell.organelles.filter((o) => o.signs.includes(sign)) : selectedCell.organelles),
-    [selectedCell, sign],
-  );
-
-  // Other topics that also explain the chosen sign
-  const elsewhere = useMemo(
-    () =>
-      sign
-        ? cells
-            .filter((c) => c.id !== selectedCell.id)
-            .map((c) => ({ cell: c, part: c.organelles.find((o) => o.signs.includes(sign)) }))
-            .filter((x): x is { cell: CellItem; part: CellItem["organelles"][number] } => Boolean(x.part))
-        : [],
-    [sign, selectedCell.id],
-  );
-
-  // When filtering, jump to the first matching part so the brain shows it
-  useEffect(() => {
-    if (sign && parts.length && !parts.some((p) => p.id === activeOrganelle)) onSelectOrganelle(parts[0].id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sign, selectedCell.id]);
-
+export function PartsPanel({ selectedCell, activeOrganelle, onSelectOrganelle }: PartsPanelProps) {
   return (
     <section className="panel organelle-panel">
       <div className="panel-heading">
@@ -102,33 +67,25 @@ export function PartsPanel({
           <Sparkles size={16} />
           Parts Explained
         </span>
-        {sign && (
-          <button type="button" className="sign-clear" onClick={() => onSignChange(null)}>
-            Show all
-          </button>
-        )}
       </div>
-      <p className="parts-hint">
-        {signInfo
-          ? `Parts of ${selectedCell.name} linked to ${signInfo.name.toLowerCase()}:`
-          : "Tap a part to read about it and see where it is on the brain."}
-      </p>
-
-      {parts.length === 0 && signInfo && (
-        <p className="parts-empty">Nothing in {selectedCell.name} is a main cause of this sign. Try one below.</p>
-      )}
+      <p className="parts-hint">Tap a part's name to see where it is on the brain.</p>
 
       <div className="part-list">
-        {parts.map((o) => {
-          const open = activeOrganelle === o.id;
+        {selectedCell.organelles.map((o) => {
+          const selected = activeOrganelle === o.id;
           return (
-            <article key={o.id} className={`part-card ${open ? "is-open" : ""}`} style={{ ["--dot" as string]: o.color }}>
+            <article
+              key={o.id}
+              className={`part-card is-open ${selected ? "is-selected" : ""}`}
+              style={{ ["--dot" as string]: o.color }}
+            >
               <button
                 type="button"
                 className="part-card-head"
-                aria-expanded={open}
+                aria-pressed={selected}
+                title="Show this part on the brain"
                 onClick={() => {
-                  if (!open) onSelectOrganelle(o.id);
+                  if (!selected) onSelectOrganelle(o.id);
                 }}
               >
                 <i />
@@ -136,9 +93,9 @@ export function PartsPanel({
                   <strong>{o.name}</strong>
                   <em>{o.subtitle}</em>
                 </span>
-                <ChevronDown size={16} />
+                <MapPin size={16} />
               </button>
-              {open && (
+              {(
                 <div className="part-card-body">
                   <div className="part-adhd">
                     <h5>{selectedCell.adhdHeading ?? "How ADHD affects it"}</h5>
@@ -167,21 +124,6 @@ export function PartsPanel({
           );
         })}
       </div>
-
-      {signInfo && elsewhere.length > 0 && (
-        <div className="sign-elsewhere">
-          <h5>Also linked to {signInfo.name.toLowerCase()}</h5>
-          {elsewhere.map(({ cell, part }) => (
-            <button key={cell.id} type="button" onClick={() => onOpenPart(cell.id, part.id)}>
-              <i style={{ background: part.color }} />
-              <span>
-                <strong>{part.name}</strong>
-                <em>in {cell.name}</em>
-              </span>
-            </button>
-          ))}
-        </div>
-      )}
     </section>
   );
 }

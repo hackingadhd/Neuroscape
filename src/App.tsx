@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { cells, getCellById, NEURO_INFO, type BrainState, type Sign, type ViewMode } from "./data/cells";
+import { cells, getCellById, NEURO_INFO, type BrainState, type ViewMode } from "./data/cells";
 import { journeyFor } from "./data/journeys";
 import { loadLastCellId, saveLastCellId } from "./lib/storage";
 import { Header } from "./components/Header";
@@ -14,9 +14,14 @@ import { AboutModal } from "./components/AboutModal";
 import { SpecimenGridModal } from "./components/SpecimenGridModal";
 import { Toast } from "./components/Toast";
 import { ShortcutsHelp } from "./components/ShortcutsHelp";
+import { WelcomeScreen } from "./components/WelcomeScreen";
+import { GuidedTour } from "./components/GuidedTour";
+import { ResizeHandle } from "./components/ResizeHandle";
 import { useOverlays } from "./hooks/useOverlays";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
+import { openDropPanel, useDropPanels } from "./hooks/useDropPanels";
 import { ACCENTS, loadAccent, saveAccent } from "./lib/theme";
+import { scapeGradient } from "./lib/scapeGradient";
 
 export default function App() {
   const [selectedCellId, setSelectedCellId] = useState(loadLastCellId);
@@ -32,7 +37,64 @@ export default function App() {
   const [toast, setToast] = useState<string | null>(null);
   const toastTimer = useRef<number | null>(null);
   const [accent, setAccent] = useState(loadAccent);
-  const [sign, setSign] = useState<Sign | null>(null);
+  const [showWelcome, setShowWelcome] = useState(true);
+  const [showTour, setShowTour] = useState(false);
+  const TOUR_KEY = "neuroscape-tour-seen";
+  function startTour() {
+    overlays.close();
+    setShowTour(true);
+  }
+  function endTour() {
+    setShowTour(false);
+    try {
+      localStorage.setItem(TOUR_KEY, "1");
+    } catch {
+      /* ignore */
+    }
+  }
+  function leaveWelcome() {
+    setShowWelcome(false);
+    let seen = false;
+    try {
+      seen = localStorage.getItem(TOUR_KEY) === "1";
+    } catch {
+      /* ignore */
+    }
+    // First visit: walk through the page once the welcome screen has gone
+    if (!seen) window.setTimeout(() => setShowTour(true), 500);
+  }
+  // Width of the text area (left); the brain takes the rest. Remembered in this browser.
+  const DEFAULT_TEXT_W = 590;
+  const [textWidth, setTextWidth] = useState(() => {
+    try {
+      const v = Number(localStorage.getItem("neuroscape-text-width"));
+      return v >= 300 ? v : DEFAULT_TEXT_W;
+    } catch {
+      return DEFAULT_TEXT_W;
+    }
+  });
+  const [viewportW, setViewportW] = useState(() => window.innerWidth);
+  useEffect(() => {
+    const onResize = () => setViewportW(window.innerWidth);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+  const textMax = Math.max(360, viewportW - 520);
+  const textW = Math.min(textMax, Math.max(320, textWidth));
+  useEffect(() => {
+    try {
+      localStorage.setItem("neuroscape-text-width", String(Math.round(textWidth)));
+    } catch {
+      /* ignore */
+    }
+  }, [textWidth]);
+  const infoRail = useRef<HTMLElement>(null);
+  useDropPanels(infoRail);
+  // These dropdowns start open; the rest start closed
+  useEffect(() => {
+    for (const sel of [".signs-panel", ".cell-panel", ".journey-panel"]) openDropPanel(infoRail.current, sel);
+  }, []);
+
   const [journeyIndex, setJourneyIndex] = useState(0);
   const [journeyActive, setJourneyActive] = useState(false);
   const journey = useMemo(() => journeyFor(selectedCell.neuro), [selectedCell.neuro]);
@@ -84,7 +146,7 @@ export default function App() {
     showToast(next.name);
   }
 
-  useKeyboardShortcuts(overlays.active === null, {
+  useKeyboardShortcuts(overlays.active === null && !showWelcome && !showTour, {
     onPrev: () => stepTopic(-1),
     onNext: () => stepTopic(1),
     onReset: () => {
@@ -108,14 +170,18 @@ export default function App() {
     "--accent-soft": theme.accentSoft,
     "--brand": theme.accent,
     "--cell-color": selectedCell.color,
+    "--scape": scapeGradient(selectedCell.id),
+    "--scape-light": scapeGradient(selectedCell.id, 0.3),
+    "--text-w": `${textW}px`,
   } as CSSProperties;
 
   return (
     <div className="app-shell" style={shellStyle}>
       <Header
         cell={selectedCell}
-        onAbout={() => overlays.open("about")}
+        onAbout={() => setShowWelcome(true)}
         onGallery={() => overlays.open("gallery")}
+        onTour={startTour}
         accentId={accent.id}
         onAccentChange={(id) => {
           const next = ACCENTS.find((a) => a.id === id) ?? accent;
@@ -125,9 +191,16 @@ export default function App() {
       />
 
       <div className="app-grid">
-        <aside className="left-rail info-rail">
-          <div className="info-col">
-            <SignsPanel sign={sign} onSignChange={setSign} />
+        <aside className={`left-rail info-rail drop-rail ${textW < 520 ? "is-narrow" : ""}`} ref={infoRail}>
+          <div className="info-wide">
+            <BrainMapPanel
+              selectedCell={selectedCell}
+              onSelectCell={(id) => {
+                setSelectedCellId(id);
+                showToast(`Loaded ${getCellById(id).name}.`);
+              }}
+            />
+            <SignsPanel />
             <JourneyPanel
               name={journey.name}
               color={NEURO_INFO[selectedCell.neuro].color}
@@ -136,30 +209,23 @@ export default function App() {
               active={journeyActive}
               onStep={goToStep}
             />
+          </div>
+          <div className="info-col">
+            <PartsPanel selectedCell={selectedCell} activeOrganelle={activeOrganelle} onSelectOrganelle={selectPart} />
             <BottomPanels cell={selectedCell} onCompare={() => overlays.open("comparison")} />
           </div>
           <div className="info-col">
-            <BrainMapPanel
-              selectedCell={selectedCell}
-              onSelectCell={(id) => {
-                setSelectedCellId(id);
-                showToast(`Loaded ${getCellById(id).name}.`);
-              }}
-            />
-            <PartsPanel
-              selectedCell={selectedCell}
-              activeOrganelle={activeOrganelle}
-              sign={sign}
-              onSignChange={setSign}
-              onSelectOrganelle={selectPart}
-              onOpenPart={(cellId, partId) => {
-                pendingPart.current = partId;
-                setSelectedCellId(cellId);
-              }}
-            />
             <InsightPanels cell={selectedCell} activeOrganelle={activeOrganelle} brainState={brainState} />
           </div>
         </aside>
+
+        <ResizeHandle
+          width={textW}
+          min={320}
+          max={textMax}
+          onChange={setTextWidth}
+          onReset={() => setTextWidth(DEFAULT_TEXT_W)}
+        />
 
         <div className="center-stack">
           <Stage
@@ -183,6 +249,7 @@ export default function App() {
               showToast("View reset.");
             }}
             onToast={showToast}
+            onCompare={() => overlays.open("comparison")}
           />
         </div>
 
@@ -190,6 +257,7 @@ export default function App() {
 
       <ComparisonModal
         cell={selectedCell}
+        journey={journey}
         open={overlays.isOpen("comparison")}
         onOpenTopic={(id) => {
           setSelectedCellId(id);
@@ -216,6 +284,8 @@ export default function App() {
 
       <ShortcutsHelp open={overlays.isOpen("shortcuts")} onClose={() => overlays.close()} />
       <Toast message={toast} />
+      <WelcomeScreen open={showWelcome} onEnter={leaveWelcome} />
+      <GuidedTour open={showTour} onClose={endTour} />
     </div>
   );
 }

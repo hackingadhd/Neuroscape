@@ -2,6 +2,15 @@ import { Brain, ChevronRight } from "lucide-react";
 import { cells, type CellItem } from "../data/cells";
 import { MiniCell } from "./MiniCell";
 
+/** Short one-line labels for the map tiles (the full description shows on hover and on the right). */
+const SHORT_TYPE: Record<string, string> = {
+  neuro: "How cells talk",
+  dopamine: "Motivation",
+  norepinephrine: "Alertness",
+  serotonin: "Calm & mood",
+  areas: "Key brain areas",
+};
+
 type BrainMapPanelProps = {
   selectedCell: CellItem;
   onSelectCell: (id: string) => void;
@@ -26,6 +35,7 @@ export function BrainMapPanel({ selectedCell, onSelectCell }: BrainMapPanelProps
               className={`cell-row ${selected ? "is-active" : ""}`}
               style={{ ["--accent" as string]: cell.accent, ["--accent-soft" as string]: cell.accentSoft }}
               aria-current={selected}
+              title={`${cell.name}: ${cell.type}`}
               onClick={() => {
                 if (!selected) onSelectCell(cell.id);
               }}
@@ -33,7 +43,7 @@ export function BrainMapPanel({ selectedCell, onSelectCell }: BrainMapPanelProps
               <MiniCell cell={cell} />
               <span className="cell-row-copy">
                 <strong>{cell.name}</strong>
-                <span>{cell.type}</span>
+                <span>{SHORT_TYPE[cell.id] ?? cell.type}</span>
               </span>
               <span className="favorite-dot" aria-hidden="true">
                 <ChevronRight size={16} />

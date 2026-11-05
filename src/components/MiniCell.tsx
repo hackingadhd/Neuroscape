@@ -1,5 +1,6 @@
 import { useState, type CSSProperties } from "react";
 import type { CellItem } from "../data/cells";
+import { scapeGradient } from "../lib/scapeGradient";
 
 export function MiniCell({ cell }: { cell: CellItem }) {
   const [imageBroken, setImageBroken] = useState(false);
@@ -10,7 +11,7 @@ export function MiniCell({ cell }: { cell: CellItem }) {
     return (
       <span
         className={`mini-cell has-preview ${imageLoaded ? "is-loaded" : "is-loading"}`}
-        style={{ "--thumb": cell.accent, background: cell.accentSoft } as CSSProperties}
+        style={{ "--thumb": cell.accent, background: scapeGradient(cell.id) } as CSSProperties}
       >
         <img
           src={previewUrl}
