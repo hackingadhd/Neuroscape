@@ -191,7 +191,7 @@ export default function App() {
       />
 
       <div className="app-grid">
-        <aside className={`left-rail info-rail drop-rail ${textW < 520 ? "is-narrow" : ""}`} ref={infoRail}>
+        <aside className={`left-rail info-rail drop-rail ${textW < 520 ? "is-narrow" : ""} ${textW < 400 ? "is-tight" : ""}`} ref={infoRail}>
           <div className="info-wide">
             <BrainMapPanel
               selectedCell={selectedCell}

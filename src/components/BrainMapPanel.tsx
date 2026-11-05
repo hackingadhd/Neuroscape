@@ -11,6 +11,14 @@ const SHORT_TYPE: Record<string, string> = {
   areas: "Key brain areas",
 };
 
+/** Soft hyphens (\u00AD) let long names break neatly with a hyphen, only when a tile is too narrow. */
+const BREAKABLE_NAME: Record<string, string> = {
+  neuro: "Neuro\u00ADtrans\u00ADmitters",
+  dopamine: "Dopa\u00ADmine",
+  norepinephrine: "Nor\u00ADepi\u00ADnephrine",
+  serotonin: "Sero\u00ADtonin",
+};
+
 type BrainMapPanelProps = {
   selectedCell: CellItem;
   onSelectCell: (id: string) => void;
@@ -42,7 +50,7 @@ export function BrainMapPanel({ selectedCell, onSelectCell }: BrainMapPanelProps
             >
               <MiniCell cell={cell} />
               <span className="cell-row-copy">
-                <strong>{cell.name}</strong>
+                <strong>{BREAKABLE_NAME[cell.id] ?? cell.name}</strong>
                 <span>{SHORT_TYPE[cell.id] ?? cell.type}</span>
               </span>
               <span className="favorite-dot" aria-hidden="true">

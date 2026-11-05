@@ -33,8 +33,7 @@ const STEPS: TourStep[] = [
   {
     target: ".organelle-panel",
     title: "Open and close sections",
-    text: "Tap any section title to fold it open or shut. In Parts Explained, tap a part's name to highlight it on the brain.",
-    open: ".organelle-panel",
+    text: "Tap any section title to fold it open or shut. Open Parts Explained, then tap a part's name to highlight it on the brain.",
   },
   {
     target: ".stage-title",

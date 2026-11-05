@@ -6788,3 +6788,295 @@ button.brain-label {
 .compare-step-copy.step-stack {
   animation: none;
 }
+
+/* Boxes shrink with the text area instead of being cut off when the handle is dragged left */
+.info-rail.is-narrow {
+  grid-template-columns: minmax(0, 1fr);
+}
+.info-wide,
+.info-col,
+.info-rail .panel {
+  min-width: 0;
+}
+.info-wide {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Narrow text area: wrap names onto two lines instead of cutting them off */
+.info-rail.is-narrow .info-wide .cell-row-copy strong,
+.info-rail.is-narrow .signs-panel .sign-chip strong {
+  white-space: normal;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  line-height: 1.2;
+}
+.info-rail.is-narrow .journey-intro {
+  white-space: normal;
+}
+.info-wide .journey-panel .panel-heading {
+  gap: 10px;
+}
+.info-wide .journey-panel .panel-heading > span:first-child {
+  min-width: 0;
+}
+.info-rail.is-narrow .info-wide .journey-panel .panel-heading > span:first-child {
+  white-space: normal;
+}
+.journey-panel .journey-count {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* =====================================================================
+   Phones and tablets (≤ 1080px): one column. Brain first, its controls under it,
+   then the text sections. Overrides the older desktop layers above.
+   ===================================================================== */
+@media (max-width: 1080px) {
+  html, body { overflow-x: hidden; }
+  .app-shell { padding: 12px 12px 28px !important; min-width: 0; }
+
+  /* Header: back button + About on one row, links below */
+  .scape-topbar {
+    display: flex !important;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 12px;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 0 12px !important;
+  }
+  .scape-topbar .brand-block { display: flex; gap: 0; }
+  .scape-topbar .brand-block p { display: none; }
+  .scape-back { font-size: 1rem; }
+  .scape-nav { gap: 14px; flex-wrap: wrap; justify-content: flex-end; }
+  .scape-topbar .scape-link { font-size: 0.82rem; white-space: nowrap; }
+  .scape-topbar .scape-pill { padding: 7px 12px; font-size: 0.8rem; white-space: nowrap; }
+
+  /* Main layout */
+  .app-grid {
+    display: flex !important;
+    flex-direction: column;
+    gap: 14px !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+  .app-grid > * { width: 100% !important; min-width: 0 !important; max-width: none !important; margin: 0 !important; }
+  .resize-handle { display: none !important; }
+  .center-stack { order: -1; display: block !important; height: auto !important; }
+
+  /* Stage: title, brain, tools, view options, stacked */
+  .stage-column { display: block !important; height: auto !important; }
+  .stage-panel {
+    display: flex !important;
+    flex-direction: column;
+    gap: 12px;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+  .stage-title {
+    order: 1;
+    position: static !important;
+    display: block !important;
+    width: auto !important;
+    max-width: none !important;
+    padding: 0 !important;
+  }
+  .stage-title h2 { font-size: 2rem !important; line-height: 1.1; }
+  .stage-title p { font-size: 0.95rem; }
+  .stage-title .state-hint { font-size: 0.8rem; max-width: none; }
+  .canvas-wrap {
+    order: 2;
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: min(92vw, 420px) !important;
+    margin: 0 !important;
+    border-radius: 18px;
+  }
+  .canvas-wrap.is-synapse { height: min(110vw, 480px) !important; }
+  .synapse-hud { font-size: 0.72rem; }
+  .stage-toolbar,
+  .export-toolbar {
+    order: 3;
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    align-self: center;
+    width: auto !important;
+    max-width: 100%;
+  }
+  .stage-toolbar .tb-label,
+  .export-toolbar .tb-label { display: none !important; }
+  .view-card,
+  .view-card.is-side {
+    order: 4;
+    position: static !important;
+    inset: auto !important;
+    width: 100% !important;
+    max-width: none !important;
+    transform: none !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px 14px !important;
+    align-items: center;
+  }
+  .view-card > span:first-child,
+  .view-card .mode-switcher,
+  .view-card .state-switch,
+  .view-compare { grid-column: 1 / -1; }
+
+  /* Text sections */
+  .info-rail {
+    display: flex !important;
+    flex-direction: column;
+    gap: 14px !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+  .info-wide,
+  .info-col {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 14px !important;
+    width: 100% !important;
+  }
+  .info-rail .panel { width: 100% !important; }
+  .info-wide .cell-list { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  .info-wide .cell-row-copy strong,
+  .signs-panel .sign-chip strong {
+    white-space: normal !important;
+    overflow: visible !important;
+    overflow-wrap: anywhere;
+    line-height: 1.2;
+  }
+  .signs-panel .sign-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .journey-panel .journey-intro { white-space: normal; }
+  .info-wide .journey-panel .panel-heading > span:first-child { white-space: normal; }
+  .journey-card { grid-template-columns: 36px minmax(0, 1fr) !important; }
+  .journey-dots { flex-wrap: wrap; justify-content: center; }
+
+  /* Pop-ups and welcome */
+  .modal-layer { padding: 8px !important; align-items: flex-start; overflow-y: auto; }
+  .comparison-modal,
+  .brain-compare { width: 100% !important; padding: 18px 14px !important; max-height: none; }
+  .compare-steps { grid-template-columns: 36px minmax(0, 1fr) 36px; gap: 8px; padding: 12px 10px; }
+  .compare-step-copy p { font-size: 0.8rem; }
+  .contrast-table { font-size: 0.8rem; }
+  .welcome-screen { padding: 16px 16px 28px !important; }
+}
+@media (max-width: 1080px) {
+  .scape-topbar .brand-block { flex: 1 0 100%; justify-content: flex-start; }
+  .scape-nav { flex: 1 0 100%; justify-content: space-between; gap: 8px; }
+  .view-card .toggle-line span { white-space: nowrap; }
+}
+/* Phones: keep Typical and ADHD next to each other so they can be compared at a glance */
+@media (max-width: 1080px) {
+  .compare-live-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important; gap: 8px; margin: 12px 0; }
+  .compare-live { padding: 8px; gap: 6px; }
+  .compare-live h4 { font-size: 1rem; }
+  .compare-live header span { display: none; }
+  .compare-canvas.is-brain,
+  .compare-canvas.is-synapse { height: 230px !important; }
+  .compare-note { font-size: 0.7rem; }
+  .compare-stat { grid-template-columns: 1fr auto !important; font-size: 0.68rem; }
+  .compare-stat i { grid-column: 1 / -1; grid-row: 2; }
+}
+/* Small brains in the comparison: smaller name label */
+.compare-canvas .brain-label {
+  font-size: 0.72rem !important;
+  padding: 3px 8px !important;
+  white-space: nowrap;
+}
+@media (max-width: 1080px) {
+  .compare-canvas .brain-label { font-size: 0.6rem !important; padding: 2px 6px !important; border-width: 1px !important; }
+  .compare-canvas .brain-label::before { width: 5px !important; height: 5px !important; }
+}
+
+/* Brain Map: always one row of five on computers; tiles shrink as the text area narrows */
+@media (min-width: 1081px) {
+  .info-rail .info-wide .cell-list,
+  .info-rail.is-narrow .info-wide .cell-list {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    gap: 6px;
+  }
+  .info-rail.is-narrow .info-wide .cell-row { padding: 8px 2px; gap: 4px; }
+  .info-rail.is-narrow .info-wide .cell-row .mini-cell { width: 36px; height: 36px; }
+  .info-rail.is-narrow .info-wide .cell-row-copy strong {
+    font-size: 0.6rem;
+    hyphens: auto;
+    overflow-wrap: normal;
+  }
+  .info-rail.is-narrow .info-wide .cell-row-copy span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.58rem;
+  }
+  .info-rail.is-tight .info-wide .cell-row-copy span { display: none; }
+  .info-rail.is-tight .info-wide .cell-row .mini-cell { width: 30px; height: 30px; }
+}
+/* Phones: three per row; tablets in one column have room for five */
+@media (max-width: 560px) {
+  .info-wide .cell-list { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+}
+@media (min-width: 561px) and (max-width: 1080px) {
+  .info-wide .cell-list { grid-template-columns: repeat(5, minmax(0, 1fr)) !important; }
+}
+/* Narrow text area: long Brain Map names break with a hyphen instead of being clipped */
+@media (min-width: 1081px) {
+  .info-rail.is-narrow .info-wide .cell-row-copy strong {
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+    hyphens: manual;
+    line-height: 1.15;
+  }
+}
+
+/* How … Travels: tighter, so the wide box isn't so tall */
+.info-wide .journey-panel .journey-intro {
+  margin: -6px 0 8px;
+  font-size: 0.8rem;
+}
+.info-wide .journey-card {
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 10px;
+  min-height: 0;
+  padding: 10px 14px;
+  border-radius: 14px;
+}
+.info-wide .journey-num {
+  width: 28px;
+  height: 28px;
+  font-size: 0.9rem;
+}
+.info-wide .journey-card h4 {
+  margin: 3px 0 3px;
+  font-size: 0.98rem;
+}
+.info-wide .journey-card p {
+  font-size: 0.84rem;
+  line-height: 1.4;
+}
+.info-wide .journey-card small {
+  margin-top: 4px;
+  font-size: 0.66rem;
+}
+.info-wide .journey-controls {
+  margin-top: 8px;
+}
+.info-wide .journey-arrow {
+  width: 36px;
+  height: 36px;
+}
+.info-wide .journey-arrow.is-next:has(span) {
+  width: auto;
+  padding: 0 14px;
+}
