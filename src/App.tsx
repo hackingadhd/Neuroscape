@@ -179,7 +179,6 @@ export default function App() {
     <div className="app-shell" style={shellStyle}>
       <Header
         cell={selectedCell}
-        onAbout={() => setShowWelcome(true)}
         onGallery={() => overlays.open("gallery")}
         onTour={startTour}
         accentId={accent.id}

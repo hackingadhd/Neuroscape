@@ -1,23 +1,18 @@
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { CellItem } from "../data/cells";
 
 type HeaderProps = {
   cell: CellItem;
-  onAbout: () => void;
   onGallery: () => void;
   onTour: () => void;
   accentId: string;
   onAccentChange: (id: string) => void;
 };
 
-export function Header({ onAbout, onGallery, onTour }: HeaderProps) {
+export function Header({ onGallery, onTour }: HeaderProps) {
   return (
     <header className="topbar scape-topbar">
       <div className="brand-block">
-        <a className="scape-back" href="../index.html#dashboard" title="Back to your Mindscape dashboard">
-          <ArrowLeft size={18} />
-          Mindscape
-        </a>
         <p>Explore what happens in the ADHD brain</p>
       </div>
 
@@ -28,10 +23,10 @@ export function Header({ onAbout, onGallery, onTour }: HeaderProps) {
         <button type="button" className="scape-link" onClick={onGallery}>
           View all topics
         </button>
-        <button type="button" className="scape-pill" onClick={onAbout}>
-          About Neuroscape
+        <a className="scape-pill" href="https://substack.com/@hackingadhd" target="_blank" rel="noopener noreferrer">
+          About me
           <ArrowUpRight size={15} />
-        </button>
+        </a>
       </nav>
     </header>
   );

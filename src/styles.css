@@ -7080,3 +7080,9 @@ button.brain-label {
   width: auto;
   padding: 0 14px;
 }
+/* About me is a link now: keep the pill look */
+a.scape-pill { text-decoration: none; }
+/* Phones: the header has no left-hand title any more */
+@media (max-width: 1080px) {
+  .scape-topbar .brand-block { display: none !important; }
+}

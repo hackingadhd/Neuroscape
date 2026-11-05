@@ -66,14 +66,9 @@ const STEPS: TourStep[] = [
     text: "Drag this handle to give the text or the brain more space. Double-click it to reset.",
   },
   {
-    target: ".scape-back",
-    title: "Back to Mindscape",
-    text: "Tap Mindscape any time to go back to your Mindscape dashboard.",
-  },
-  {
     target: ".scape-nav",
     title: "You're all set",
-    text: "View all topics opens the gallery. Take the tour brings this guide back any time.",
+    text: "View all topics opens the gallery, and About me tells you who made this. Take the tour brings this guide back any time.",
   },
 ];
 
